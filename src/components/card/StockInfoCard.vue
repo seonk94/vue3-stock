@@ -59,7 +59,8 @@ export default class StockInfoCard extends Vue {
   async loadPreviousPrice(symbol: string) {
     const localStoragePrice = window.localStorage.getItem(this.storageKey);
     if (localStoragePrice) {
-      return (this.previousPrice = JSON.parse(localStoragePrice));
+      (this.previousPrice = JSON.parse(localStoragePrice))
+      return;
     }
     const iexCloudClient = new IexCloudClient(
       process.env.VUE_APP_IEX_API_TOKEN,
