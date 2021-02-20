@@ -1,14 +1,12 @@
-import axios, { AxiosInstance } from 'axios';
-import { iexCloudBaseUrl } from '@/constants';
+import axios, { AxiosInstance } from "axios";
+import { iexCloudBaseUrl } from "@/constants";
 
 export default class BaseClient {
   protected token: string;
 
   protected axios: AxiosInstance;
 
-  constructor(
-    token: string,
-  ) {
+  constructor(token: string) {
     this.token = token;
     this.axios = this.createAxios();
   }
@@ -19,7 +17,7 @@ export default class BaseClient {
 
   private createAxios() {
     const instance = axios.create({
-      baseURL: iexCloudBaseUrl,
+      baseURL: iexCloudBaseUrl
     });
     return instance;
   }

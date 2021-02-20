@@ -1,4 +1,3 @@
-
 export interface IexSymbol {
   symbol: string;
   exchange: string;

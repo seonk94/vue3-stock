@@ -1,5 +1,5 @@
-import CheckLogin from './CheckLogin';
+import CheckLogin from "./CheckLogin";
 
 export default {
-  CheckLogin,
+  CheckLogin
 };

@@ -1,4 +1,4 @@
-# vue
+# vue-stock
 
 ## Project setup
 ```

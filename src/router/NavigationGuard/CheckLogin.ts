@@ -1,4 +1,4 @@
-import { NavigationGuard } from 'vue-router';
+import { NavigationGuard } from "vue-router";
 
 const checkLogin: NavigationGuard = (_to, _from, next) => {
   next();

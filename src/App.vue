@@ -1,34 +1,30 @@
 <template>
-  <v-app>
-    <v-content class="main-content">
-      <v-row class="spinner" align="center" justify="center" v-if="loading">
-        <v-progress-circular indeterminate color="primary"></v-progress-circular>
-      </v-row>
-      <router-view v-else />
-    </v-content>
-  </v-app>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </div>
+  <router-view />
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-@Component({})
-export default class App extends Vue {
-  get loading() {
-    return this.$store.state.loading;
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
   }
-}
-</script>
-
-<style scoped lang='scss'>
-.main-content {
-  background: #eee;
-}
-.spinner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: white;
 }
 </style>

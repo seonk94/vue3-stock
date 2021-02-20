@@ -1,15 +1,6 @@
-import {
-  RootState,
-  UserState,
-  StockState,
-} from './store';
+import { RootState, UserState, StockState } from './store';
 
-import {
-  IexSymbol,
-  IexDividend,
-  IexCompany,
-  IexEarning,
-} from './iex'
+import { IexSymbol, IexDividend, IexCompany, IexEarning } from './iex';
 
 export interface StockDatum {
   symbol: string;
@@ -25,5 +16,5 @@ export {
   IexSymbol,
   IexDividend,
   IexCompany,
-  IexEarning,
-}
+  IexEarning
+};
