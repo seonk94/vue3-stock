@@ -20,6 +20,17 @@ export default defineComponent({
       };
       ui.start("#firebaseui-auth-container", uiConfig);
     }
-    return () => <div></div>;
+
+    initFirebase();
+    return () => (
+      <div class="container is-fluid">
+        <div class="columns is-centered">
+          <section class="section">
+            <h1 class="title">Login</h1>
+            <section id="firebaseui-auth-container"></section>
+          </section>
+        </div>
+      </div>
+    );
   }
 });
