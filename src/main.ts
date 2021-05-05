@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import App from './App';
 import router from './router';
 import { store } from './store';
+import AuthProvider from './lib/provider/AuthProvider';
 
 firebase.initializeApp({
   apiKey: process.env.VUE_APP_API_KEY,
@@ -15,4 +16,4 @@ firebase.initializeApp({
   measurementId: process.env.VUE_APP_MEASUREMENT_ID,
 });
 
-createApp(App).use(router).use(store).mount('#app');
+createApp(App).use(router).use(AuthProvider).use(store).mount('#app');

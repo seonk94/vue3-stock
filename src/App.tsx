@@ -1,25 +1,20 @@
-import { computed, defineComponent } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import * as firebase from 'firebase/app';
+import { injectAuth } from './lib/provider/AuthProvider';
 
 const App = defineComponent({
   setup() {
-    const store = useStore();
     const router = useRouter();
+    const { authAction } = injectAuth();
 
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
       if (!user) {
         router.push('/login');
       } else {
-        store.commit('user/setUser', {
-          name: user.displayName,
-          uid: user.uid,
-        });
+        authAction.setAuth(user);
       }
-      store.commit('setLoading', false);
     });
 
     return () => <router-view></router-view>;
