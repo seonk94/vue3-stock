@@ -1,27 +1,25 @@
 <template>
-  <v-container class="fill-height">
-    <v-row align="center" justify="center" class="fill-height">
-      <v-card outlined class="login-card">
+  <div class="fill-height">
+    <div align="center" justify="center" class="fill-height">
+      <div outlined class="login-card">
         <h3>Login</h3>
-        <v-row>
+        <div>
           <section id="firebaseui-auth-container"></section>
-        </v-row>
-      </v-card>
-    </v-row>
-  </v-container>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
-import { Vue } from 'vue-property-decorator';
 import 'firebaseui/dist/firebaseui.css';
+import { defineComponent } from 'vue';
 
-export default Vue.extend({
-  name: 'Login',
-  data: () => ({}),
-  methods: {
-    initFirebase(): void {
+export default defineComponent({
+  setup() {
+    function initFirebase() {
       let ui = firebaseui.auth.AuthUI.getInstance();
       if (!ui) {
         ui = new firebaseui.auth.AuthUI(firebase.auth());
@@ -35,16 +33,17 @@ export default Vue.extend({
         ],
       };
       ui.start('#firebaseui-auth-container', uiConfig);
-    },
-  },
-  mounted: function mounted() {
-    this.initFirebase();
+    }
+
+    return {
+      initFirebase,
+    };
   },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .fill-height {
   height: 100%;
 }

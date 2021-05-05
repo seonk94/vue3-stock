@@ -9,5 +9,9 @@ declare global {
     interface IntrinsicElements {
       [elem: string]: any;
     }
+
+    interface IntrinsicAttributes extends ReservedProps {
+      [emit: string]: any;
+    }
   }
 }

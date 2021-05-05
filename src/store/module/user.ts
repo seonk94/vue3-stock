@@ -1,29 +1,22 @@
-import Vue from 'vue';
 import Vuex, { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
 import { IRootState, IUserState } from '@/@types';
-
-Vue.use(Vuex);
 
 const state: IUserState = {
   user: {
     name: '',
-    uid: ''
-  }
-}
+    uid: '',
+  },
+};
 
-const getters: GetterTree<IUserState, IRootState> = {
-
-}
+const getters: GetterTree<IUserState, IRootState> = {};
 
 const mutations: MutationTree<IUserState> = {
   setUser(state, user) {
-    state.user = user
-  }
-}
+    state.user = user;
+  },
+};
 
-const actions: ActionTree<IUserState, IRootState> = {
-
-}
+const actions: ActionTree<IUserState, IRootState> = {};
 
 const user: Module<IUserState, IRootState> = {
   namespaced: true,
@@ -31,6 +24,6 @@ const user: Module<IUserState, IRootState> = {
   getters,
   mutations,
   actions,
-}
+};
 
 export default user;

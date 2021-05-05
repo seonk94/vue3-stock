@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import 'firebase/firestore'
+import 'firebase/firestore';
 import { StockDatum } from '@/@types';
 
 export default class FirebaseClient {
@@ -8,10 +8,10 @@ export default class FirebaseClient {
   }
 
   public getStockDatum(id: string) {
-    return firebase.firestore().collection(id).get()
+    return firebase.firestore().collection(id).get();
   }
 
   public deleteStockDatum(id: string, symbol: string) {
-    return firebase.firestore().collection(id).doc(symbol).delete()
+    return firebase.firestore().collection(id).doc(symbol).delete();
   }
 }

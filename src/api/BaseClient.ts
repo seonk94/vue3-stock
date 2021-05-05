@@ -6,9 +6,7 @@ export default class BaseClient {
 
   protected axios: AxiosInstance;
 
-  constructor(
-    token: string,
-  ) {
+  constructor(token: string) {
     this.token = token;
     this.axios = this.createAxios();
   }

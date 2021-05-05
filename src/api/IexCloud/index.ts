@@ -4,9 +4,7 @@ import { IexPreviousPrice } from '@/@types/iex';
 import BaseClient from '../BaseClient';
 
 export default class IexCloudClient extends BaseClient {
-  static create(
-    token: string,
-  ) {
+  static create(token: string) {
     return new IexCloudClient(token);
   }
 
@@ -15,26 +13,26 @@ export default class IexCloudClient extends BaseClient {
   }
 
   getStockLogo(symbol: string): Promise<AxiosResponse<{ url: string }>> {
-    return this.axios.get(`stock/${symbol}/logo?token=${this.token}`)
+    return this.axios.get(`stock/${symbol}/logo?token=${this.token}`);
   }
 
   getSymbolList(): Promise<AxiosResponse<IexSymbol[]>> {
-    return this.axios.get(`ref-data/symbols?token=${this.token}`)
+    return this.axios.get(`ref-data/symbols?token=${this.token}`);
   }
 
   getDividends(symbol: string): Promise<AxiosResponse<IexDividend[]>> {
-    return this.axios.get(`stock/${symbol}/dividends/1y?token=${this.token}`)
+    return this.axios.get(`stock/${symbol}/dividends/1y?token=${this.token}`);
   }
 
   getEarnings(symbol: string, period: 'annual' | 'quarter' = 'quarter'): Promise<AxiosResponse<IexEarning[]>> {
     return this.axios.get(`stock/${symbol}/earnings/`, {
       params: {
-        period
-      }
-    })
+        period,
+      },
+    });
   }
 
   getPreviousPrive(symbol: string): Promise<AxiosResponse<IexPreviousPrice>> {
-    return this.axios.get(`stock/${symbol}/previous?token=${this.token}`)
+    return this.axios.get(`stock/${symbol}/previous?token=${this.token}`);
   }
 }
