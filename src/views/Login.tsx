@@ -22,19 +22,17 @@ const Login = defineComponent({
     });
 
     return () => (
-      <div class="container" style={{ height: '100vh' }}>
-        <div class="columns is-centered fill-height">
-          <div class="columns is-flex-direction-column">
-            <div class="block pa-4">
-              <h3 class="title is-3">Login</h3>
-              <div>
-                <section id="firebaseui-auth-container"></section>
-              </div>
+      <div class="container mx-auto h-screen">
+        <div class="flex flex-col h-full max-w-sm mx-auto">
+          <div class="block py-4">
+            <h3 class="text-3xl font-bold pb-4">Login</h3>
+            <div>
+              <section id="firebaseui-auth-container"></section>
             </div>
-            <div class="block spacer" />
-            <div class="block py-2 has-text-centered">
-              <h6 class="subtitle is-6">buba.</h6>
-            </div>
+          </div>
+          <div class="flex-grow" />
+          <div class="block py-4 text-center">
+            <h6 class="text-sm">buba @</h6>
           </div>
         </div>
       </div>

@@ -7,8 +7,8 @@ const loadView = (path: string) => {
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'About',
-    component: loadView('About'),
+    name: 'Home',
+    component: loadView('Home'),
   },
   {
     path: '/login',
