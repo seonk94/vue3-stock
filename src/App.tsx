@@ -1,15 +1,15 @@
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-import * as firebase from 'firebase/app';
 import { injectAuth } from './lib/provider/AuthProvider';
+import { auth } from './lib/firebase';
 
 const App = defineComponent({
   setup() {
     const router = useRouter();
     const { authAction } = injectAuth();
 
-    firebase.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       if (!user) {
         router.push('/login');
       } else {
@@ -17,7 +17,11 @@ const App = defineComponent({
       }
     });
 
-    return () => <router-view></router-view>;
+    return () => (
+      <div>
+        <router-view></router-view>
+      </div>
+    );
   },
 });
 
