@@ -6,14 +6,14 @@ const loadView = (path: string) => {
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'Home',
-    component: loadView('Home'),
-  },
-  {
     path: '/login',
     name: 'Login',
     component: loadView('Login'),
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: loadView('Home'),
   },
 ];
 
