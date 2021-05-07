@@ -1,6 +1,5 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { StockDatum } from '@/@types';
 
 export default class FirebaseClient {
   public setStockDatum(id: string, data: StockDatum) {

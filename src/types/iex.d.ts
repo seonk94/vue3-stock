@@ -1,4 +1,4 @@
-export interface IexSymbol {
+interface IexSymbol {
   symbol: string;
   exchange: string;
   name: string;
@@ -12,7 +12,7 @@ export interface IexSymbol {
   cik: string;
 }
 
-export interface IexDividend {
+interface IexDividend {
   exDate: string;
   paymentDate: string;
   recordDate: string;
@@ -25,7 +25,7 @@ export interface IexDividend {
   date: string;
 }
 
-export interface IexCompany {
+interface IexCompany {
   symbol: string;
   companyName: string;
   exchange: string;
@@ -48,7 +48,7 @@ export interface IexCompany {
   phone: string;
 }
 
-export interface IexEarning {
+interface IexEarning {
   actualEPS: number;
   consensusEPS: number;
   announceTime: string;
@@ -61,7 +61,7 @@ export interface IexEarning {
   yearAgoChangePercent: number;
 }
 
-export interface IexPreviousPrice {
+interface IexPreviousPrice {
   date: string;
   open: number;
   close: number;

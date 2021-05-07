@@ -1,6 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { IexDividend, IexCompany, IexSymbol, IexEarning } from '@/@types';
-import { IexPreviousPrice } from '@/@types/iex';
 import BaseClient from '../BaseClient';
 
 export default class IexCloudClient extends BaseClient {

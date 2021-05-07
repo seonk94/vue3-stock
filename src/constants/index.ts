@@ -1,1 +1,1 @@
-export const iexCloudBaseUrl = 'https://cloud.iexapis.com/stable/';
+export const IexCloudBaseUrl = 'https://cloud.iexapis.com/stable/';
