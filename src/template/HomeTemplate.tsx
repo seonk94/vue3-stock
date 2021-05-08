@@ -1,11 +1,13 @@
-import Appbar from '@/components/navigation/AppBar';
+import StockTable from '@/components/table/StockTable';
+import { injectStock } from '@/lib/provider/StockProvider';
 import { defineComponent } from '@vue/runtime-core';
 
 const HomeTemplate = defineComponent({
   setup() {
+    const { stockState } = injectStock();
     return () => (
-      <div class="container max-w-full">
-        <Appbar />
+      <div class="sm:container m-auto">
+        <StockTable stocks={stockState.stocks} />
       </div>
     );
   },

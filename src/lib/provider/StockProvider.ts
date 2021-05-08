@@ -21,8 +21,8 @@ const createContext = (userId: string) => {
   action.fetchStocks();
 
   return {
-    authState: state,
-    authAction: action,
+    stockState: state,
+    stockAction: action,
   };
 };
 
