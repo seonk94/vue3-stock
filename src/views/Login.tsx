@@ -11,7 +11,7 @@ const Login = defineComponent({
         ui = new firebaseui.auth.AuthUI(firebase.auth());
       }
       const uiConfig = {
-        signInSuccessUrl: '/',
+        signInSuccessUrl: '/home',
         signInOptions: [GoogleProvider],
       };
       ui.start('#firebaseui-auth-container', uiConfig);

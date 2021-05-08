@@ -1,4 +1,4 @@
-import { defineComponent, ref } from '@vue/runtime-core';
+import { defineComponent } from '@vue/runtime-core';
 
 const Appbar = defineComponent({
   setup() {

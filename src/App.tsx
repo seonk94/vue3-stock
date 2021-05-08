@@ -15,6 +15,7 @@ const App = defineComponent({
         router.push('/login');
       } else {
         authAction.setAuth(user);
+        router.push('/home');
       }
       loading.value = false;
     });
