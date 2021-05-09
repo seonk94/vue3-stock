@@ -1,5 +1,6 @@
-import IexCloudClient from '@/api/IexCloud';
-import { defineComponent, onMounted } from '@vue/runtime-core';
+import { defineComponent, ref } from '@vue/runtime-core';
+import IconButton from '../button/IconButton';
+import SymbolAddModal from '../modal/SymbolAddModal';
 
 const StockTable = defineComponent({
   props: {
@@ -9,6 +10,14 @@ const StockTable = defineComponent({
     },
   },
   setup(props) {
+    const showAddModal = ref(true);
+
+    const openAddModal = () => {
+      showAddModal.value = true;
+    };
+    const closeAddModal = () => {
+      showAddModal.value = false;
+    };
     return () => (
       <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -32,6 +41,13 @@ const StockTable = defineComponent({
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td colspan={4}>
+                      <div class="flex justify-center items-center py-2">
+                        <IconButton icon="plus" color="green" onClick={openAddModal} />
+                      </div>
+                    </td>
+                  </tr>
                   {props.stocks.map((stock) => (
                     <tr>
                       <td class="px-6 py-4 whitespace-nowrap">
@@ -62,6 +78,7 @@ const StockTable = defineComponent({
             </div>
           </div>
         </div>
+        {showAddModal.value && <SymbolAddModal onClose={closeAddModal} />}
       </div>
     );
   },

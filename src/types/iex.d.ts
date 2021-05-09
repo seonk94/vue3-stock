@@ -1,6 +1,8 @@
 interface IexSymbol {
   symbol: string;
   exchange: string;
+  exchangeSuffix: string;
+  exchangeName: string;
   name: string;
   date: string;
   type: string;
@@ -10,6 +12,7 @@ interface IexSymbol {
   isEnabled: boolean;
   figi: string;
   cik: string;
+  lei: string | null;
 }
 
 interface IexDividend {
