@@ -10,7 +10,7 @@ const StockTable = defineComponent({
     },
   },
   setup(props) {
-    const showAddModal = ref(true);
+    const showAddModal = ref(false);
 
     const openAddModal = () => {
       showAddModal.value = true;

@@ -1,16 +1,17 @@
 import { inject, provide, reactive } from '@vue/runtime-core';
-import IexCloudClient from '@/api/IexCloud';
+import { injectClient } from '@/plugins/client';
 
 const SymbolSymbol = Symbol();
 
 const createContext = () => {
+  const client = injectClient();
   const state = reactive({
     symbols: [] as IexSymbol[],
   });
 
   const action = {
     fetchSymbols: async () => {
-      const result = await new IexCloudClient(process.env.VUE_APP_IEX_API_TOKEN).getSymbolList();
+      const result = await client.getSymbolList();
       state.symbols = result.data;
     },
   };
