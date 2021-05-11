@@ -1,18 +1,41 @@
-import { defineComponent, reactive } from '@vue/runtime-core';
+import FirebaseClient from '@/api/firebase';
+import { injectAuth } from '@/lib/provider/AuthProvider';
+import { injectClient } from '@/plugins/client';
+import { computed, defineComponent, reactive } from '@vue/runtime-core';
 import DefaultButton from '../button/DefaultButton';
 import SymbolSelector from '../Input/SymbolSelector';
 
 const SymbolAddModal = defineComponent({
-  emits: ['close'],
+  emits: ['close', 'add'],
   setup(props, context) {
+    const client = injectClient();
+    const { authState } = injectAuth();
     const state = reactive({
       selectSymbol: '',
     });
+    const symbolValid = computed(() => state.selectSymbol !== '');
     const handleClose = () => {
       context.emit('close');
     };
     const handleSelectSymbol = (symbol: string) => {
       state.selectSymbol = symbol;
+    };
+    const handleAdd = async () => {
+      if (symbolValid.value && authState.auth) {
+        const [companyResponse, dividendResponse] = await Promise.all([
+          client.getCompanyInfomation(state.selectSymbol),
+          client.getDividends(state.selectSymbol),
+        ]);
+
+        const stockDatum = {
+          symbol: state.selectSymbol,
+          dividend: dividendResponse.data,
+          company: companyResponse.data,
+          holdings: 1,
+        };
+        await new FirebaseClient().setStockDatum(authState.auth.uid, stockDatum);
+        context.emit('add', stockDatum);
+      }
     };
     return () => (
       <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -37,7 +60,9 @@ const SymbolAddModal = defineComponent({
               </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <DefaultButton color="green">Add</DefaultButton>
+              <DefaultButton disabled={!symbolValid.value} onClick={handleAdd} color="green">
+                Add
+              </DefaultButton>
               <DefaultButton onClick={handleClose}>Close</DefaultButton>
             </div>
           </div>

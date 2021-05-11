@@ -1,15 +1,11 @@
+import { injectStock } from '@/lib/provider/StockProvider';
 import { defineComponent, ref } from '@vue/runtime-core';
 import IconButton from '../button/IconButton';
 import SymbolAddModal from '../modal/SymbolAddModal';
 
 const StockTable = defineComponent({
-  props: {
-    stocks: {
-      type: Array as () => Array<StockDatum>,
-      default: () => [],
-    },
-  },
-  setup(props) {
+  setup() {
+    const { stockState } = injectStock();
     const showAddModal = ref(false);
 
     const openAddModal = () => {
@@ -17,6 +13,10 @@ const StockTable = defineComponent({
     };
     const closeAddModal = () => {
       showAddModal.value = false;
+    };
+    const handleAdd = (stock: StockDatum) => {
+      stockState.stocks.push(stock);
+      closeAddModal();
     };
     return () => (
       <div class="flex flex-col">
@@ -48,7 +48,7 @@ const StockTable = defineComponent({
                       </div>
                     </td>
                   </tr>
-                  {props.stocks.map((stock) => (
+                  {stockState.stocks.map((stock) => (
                     <tr>
                       <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex-shrink-0 h-10 w-10">
@@ -78,7 +78,7 @@ const StockTable = defineComponent({
             </div>
           </div>
         </div>
-        {showAddModal.value && <SymbolAddModal onClose={closeAddModal} />}
+        {showAddModal.value && <SymbolAddModal onAdd={handleAdd} onClose={closeAddModal} />}
       </div>
     );
   },

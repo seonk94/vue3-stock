@@ -10,6 +10,23 @@ const SymbolSelector = defineComponent({
       showList: false,
       search: '',
     });
+
+    const exactMatchSymbol = computed(() => symbolState.symbols.find((symbol) => symbol.symbol === state.search.toUpperCase()));
+
+    const filterList = computed(() => {
+      const uppercaseSearch = state.search.toUpperCase();
+      if (uppercaseSearch === '') return [];
+
+      const symbolSet = new Set<IexSymbol>();
+      if (exactMatchSymbol.value) symbolSet.add(exactMatchSymbol.value);
+      symbolState.symbols.forEach((symbol) => {
+        const isIncludes = symbol.symbol.includes(uppercaseSearch);
+        if (isIncludes) symbolSet.add(symbol);
+      });
+
+      return [...symbolSet];
+    });
+
     const openList = () => {
       state.showList = true;
     };
@@ -25,29 +42,19 @@ const SymbolSelector = defineComponent({
     };
     const handleInput = (e: Event) => {
       state.search = (e.target as HTMLInputElement).value;
+      openList();
     };
     const handleSelect = (item: IexSymbol) => {
       state.search = item.symbol;
       context.emit('select', item.symbol);
       closeList();
     };
-
-    const filterList = computed(() => {
-      const uppercaseSearch = state.search.toUpperCase();
-      if (uppercaseSearch === '') return [];
-
-      const symbolSet = new Set<IexSymbol>();
-      symbolState.symbols.forEach((symbol) => {
-        const isExactMatch = symbol.symbol === uppercaseSearch;
-        if (isExactMatch) symbolSet.add(symbol);
-        else {
-          const isIncludes = symbol.symbol.includes(uppercaseSearch);
-          if (isIncludes) symbolSet.add(symbol);
-        }
-      });
-
-      return [...symbolSet];
-    });
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && exactMatchSymbol.value) {
+        state.search = exactMatchSymbol.value.symbol;
+        closeList();
+      }
+    };
 
     return () => (
       <div>
@@ -66,6 +73,7 @@ const SymbolSelector = defineComponent({
                 onFocus={openList}
                 onBlur={handleBlur}
                 onInput={handleInput}
+                onKeydown={handleKeydown}
                 type="text"
                 value={state.search}
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-4 pr-4 sm:text-sm border-gray-300 rounded-md"
