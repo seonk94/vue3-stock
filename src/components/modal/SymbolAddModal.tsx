@@ -3,6 +3,7 @@ import { injectAuth } from '@/lib/provider/AuthProvider';
 import { injectClient } from '@/plugins/client';
 import { computed, defineComponent, reactive } from '@vue/runtime-core';
 import DefaultButton from '../button/DefaultButton';
+import DefaultInput from '../Input/DefaultInput';
 import SymbolSelector from '../Input/SymbolSelector';
 
 const SymbolAddModal = defineComponent({
@@ -12,6 +13,7 @@ const SymbolAddModal = defineComponent({
     const { authState } = injectAuth();
     const state = reactive({
       selectSymbol: '',
+      holdings: 1,
     });
     const symbolValid = computed(() => state.selectSymbol !== '');
     const handleClose = () => {
@@ -19,6 +21,9 @@ const SymbolAddModal = defineComponent({
     };
     const handleSelectSymbol = (symbol: string) => {
       state.selectSymbol = symbol;
+    };
+    const handleHoldings = (value: number) => {
+      state.holdings = value;
     };
     const handleAdd = async () => {
       if (symbolValid.value && authState.auth) {
@@ -31,7 +36,7 @@ const SymbolAddModal = defineComponent({
           symbol: state.selectSymbol,
           dividend: dividendResponse.data,
           company: companyResponse.data,
-          holdings: 1,
+          holdings: state.holdings,
         };
         await new FirebaseClient().setStockDatum(authState.auth.uid, stockDatum);
         context.emit('add', stockDatum);
@@ -55,6 +60,9 @@ const SymbolAddModal = defineComponent({
                   </h3>
                   <div class="mt-2">
                     <SymbolSelector onSelect={handleSelectSymbol} />
+                  </div>
+                  <div class="mt-2">
+                    <DefaultInput placeholder="holdings" value={state.holdings} onUpdate={handleHoldings} />
                   </div>
                 </div>
               </div>
