@@ -51,7 +51,7 @@ const SymbolSelector = defineComponent({
     };
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && exactMatchSymbol.value) {
-        state.search = exactMatchSymbol.value.symbol;
+        handleSelect(exactMatchSymbol.value);
         closeList();
       }
     };
