@@ -15,7 +15,11 @@ const SymbolAddModal = defineComponent({
       selectSymbol: '',
       holdings: 1,
     });
-    const symbolValid = computed(() => state.selectSymbol !== '');
+    const addValid = computed(() => {
+      const isValidSymbol = state.selectSymbol !== '';
+      const isValidHoldings = state.holdings > 0;
+      return isValidHoldings && isValidSymbol;
+    });
     const handleClose = () => {
       context.emit('close');
     };
@@ -26,7 +30,7 @@ const SymbolAddModal = defineComponent({
       state.holdings = value;
     };
     const handleAdd = async () => {
-      if (symbolValid.value && authState.auth) {
+      if (addValid.value && authState.auth) {
         const [companyResponse, dividendResponse] = await Promise.all([
           client.getCompanyInfomation(state.selectSymbol),
           client.getDividends(state.selectSymbol),
@@ -68,7 +72,7 @@ const SymbolAddModal = defineComponent({
               </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <DefaultButton disabled={!symbolValid.value} onClick={handleAdd} color="green">
+              <DefaultButton disabled={!addValid.value} onClick={handleAdd} color="green">
                 Add
               </DefaultButton>
               <DefaultButton onClick={handleClose}>Close</DefaultButton>
