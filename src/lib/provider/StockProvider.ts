@@ -1,18 +1,19 @@
 import { inject, provide, reactive } from '@vue/runtime-core';
 import FirebaseClient from '@/api/firebase';
+import Stock from '@/model/Stock';
 
 const StockSymbol = Symbol();
 
 const createContext = (userId: string) => {
   const state = reactive({
-    stocks: [] as StockDatum[],
+    stocks: [] as Stock[],
   });
 
   const action = {
     fetchStocks: async () => {
-      const result: StockDatum[] = [];
+      const result: Stock[] = [];
       await new FirebaseClient().getStockDatum(userId).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => result.push(doc.data() as StockDatum));
+        querySnapshot.forEach((doc) => result.push(new Stock(doc.data() as StockPropertyType)));
       });
       state.stocks = result;
     },

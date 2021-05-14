@@ -1,6 +1,6 @@
-interface StockDatum {
-  symbol: string;
-  holdings: number;
-  dividend: IexDividend[];
-  company: IexCompany;
+interface StockPropertyType {
+  _symbol: string;
+  _holdings: number;
+  _dividend: IexDividend[];
+  _company: IexCompany;
 }

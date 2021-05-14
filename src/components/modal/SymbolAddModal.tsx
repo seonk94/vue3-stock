@@ -1,5 +1,6 @@
 import FirebaseClient from '@/api/firebase';
 import { injectAuth } from '@/lib/provider/AuthProvider';
+import Stock from '@/model/Stock';
 import { injectClient } from '@/plugins/client';
 import { computed, defineComponent, reactive } from '@vue/runtime-core';
 import DefaultButton from '../button/DefaultButton';
@@ -36,12 +37,12 @@ const SymbolAddModal = defineComponent({
           client.getDividends(state.selectSymbol),
         ]);
 
-        const stockDatum = {
-          symbol: state.selectSymbol,
-          dividend: dividendResponse.data,
-          company: companyResponse.data,
-          holdings: state.holdings,
-        };
+        const stockDatum = new Stock({
+          _symbol: state.selectSymbol,
+          _dividend: dividendResponse.data,
+          _company: companyResponse.data,
+          _holdings: state.holdings,
+        });
         await new FirebaseClient().setStockDatum(authState.auth.uid, stockDatum);
         context.emit('add', stockDatum);
       }
