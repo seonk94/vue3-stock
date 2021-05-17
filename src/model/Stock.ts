@@ -1,53 +1,28 @@
 export default class Stock {
-  _symbol: string;
-  _holdings = 0;
-  _dividend: IexDividend[] = [];
-  _company: IexCompany;
+  public symbol: string;
+  public holdings = 0;
+  public dividend: IexDividend[] = [];
+  public company: IexCompany;
 
   constructor(init: StockPropertyType) {
     Object.assign(this, init);
   }
 
-  get symbol() {
-    return this._symbol;
-  }
-  set symbol(symbol: string) {
-    this._symbol = symbol;
-  }
-  get holdings() {
-    return this._holdings;
-  }
-  set holdings(holdings: number) {
-    this._holdings = holdings;
-  }
-  get dividend() {
-    return this._dividend;
-  }
-  set dividend(dividend: IexDividend[]) {
-    this._dividend = dividend;
-  }
-  get company() {
-    return this._company;
-  }
-  set company(company: IexCompany) {
-    this._company = company;
-  }
-
   public calculateDividend() {
-    if (this._dividend.length === 0)
+    if (this.dividend.length === 0)
       return {
         amount: 0,
-        months: [],
+        frequency: null,
       };
-    const latestDividend = this._dividend[0];
+    const latestDividend = this.dividend[0];
     return {
       amount: Number(latestDividend.amount),
       frequency: latestDividend.frequency,
     };
   }
   public getMonths() {
-    if (this._dividend.length === 0) return [];
-    const latestDividend = this._dividend[0];
+    if (this.dividend.length === 0) return [];
+    const latestDividend = this.dividend[0];
     if (latestDividend.frequency === 'monthly') {
       return Array.from({ length: 12 }, (_, i) => i + 1);
     } else if (latestDividend.frequency === 'quarterly') {
