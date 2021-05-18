@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 
 import { injectAuth } from './lib/provider/AuthProvider';
 import { auth } from './lib/firebase';
+import Loading from './components/common/Loading';
 
 const App = defineComponent({
   setup() {
@@ -19,8 +20,12 @@ const App = defineComponent({
       }
       loading.value = false;
     });
-
-    return () => <div>{loading.value ? <h3>loading</h3> : <router-view></router-view>}</div>;
+    const LoadingDiv = (
+      <div class="bg-gray-400 w-screen h-screen flex items-center justify-center">
+        <Loading class="w-14 h-14" />
+      </div>
+    );
+    return () => <div>{loading.value ? LoadingDiv : <router-view></router-view>}</div>;
   },
 });
 
