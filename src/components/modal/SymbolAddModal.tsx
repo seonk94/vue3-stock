@@ -46,7 +46,7 @@ const SymbolAddModal = defineComponent({
     const handleAdd = async () => {
       if (addValid.value && authState.auth) {
         const stockDatum = await combineStock();
-        await firebaseClient.setStockDatum(authState.auth.uid, stockDatum);
+        await firebaseClient.setStockDatum(stockDatum);
         context.emit('add', new Stock(stockDatum));
       }
     };

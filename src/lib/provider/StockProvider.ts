@@ -4,7 +4,7 @@ import firebaseClient from '@/api/firebase';
 
 const StockSymbol = Symbol();
 
-const createContext = (userId: string) => {
+const createContext = () => {
   const state = reactive({
     stocks: [] as Stock[],
   });
@@ -12,10 +12,14 @@ const createContext = (userId: string) => {
   const action = {
     fetchStocks: async () => {
       const result: Stock[] = [];
-      await firebaseClient.getStockDatum(userId).then((querySnapshot) => {
+      await firebaseClient.getStockDatum().then((querySnapshot) => {
         querySnapshot.forEach((doc) => result.push(new Stock(doc.data() as StockPropertyType)));
       });
       state.stocks = result;
+    },
+    deleteStock: async (deleteStock: Stock) => {
+      await firebaseClient.deleteStockDatum(deleteStock.symbol);
+      state.stocks = state.stocks.filter((stock) => stock.symbol !== deleteStock.symbol);
     },
   };
 
@@ -27,8 +31,8 @@ const createContext = (userId: string) => {
   };
 };
 
-export const provideStock = (userId: string) => {
-  const context = createContext(userId);
+export const provideStock = () => {
+  const context = createContext();
   provide(StockSymbol, context);
 };
 

@@ -2,16 +2,26 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
 class FirebaseClient {
-  public setStockDatum(id: string, data: StockPropertyType) {
-    return firebase.firestore().collection(id).doc(data.symbol).set(data);
+  id = '';
+
+  private checkId() {
+    return Boolean(this.id);
   }
 
-  public getStockDatum(id: string) {
-    return firebase.firestore().collection(id).get();
+  public setId(id: string) {
+    this.id = id;
   }
 
-  public deleteStockDatum(id: string, symbol: string) {
-    return firebase.firestore().collection(id).doc(symbol).delete();
+  public setStockDatum(data: StockPropertyType) {
+    firebase.firestore().collection(this.id).doc(data.symbol).set(data);
+  }
+
+  public getStockDatum() {
+    return firebase.firestore().collection(this.id).get();
+  }
+
+  public deleteStockDatum(symbol: string) {
+    return firebase.firestore().collection(this.id).doc(symbol).delete();
   }
 }
 

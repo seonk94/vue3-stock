@@ -6,7 +6,7 @@ import SymbolAddModal from '../modal/SymbolAddModal';
 
 const StockTable = defineComponent({
   setup() {
-    const { stockState } = injectStock();
+    const { stockState, stockAction } = injectStock();
     const showAddModal = ref(false);
 
     const openAddModal = () => {
@@ -19,9 +19,12 @@ const StockTable = defineComponent({
       stockState.stocks.push(stock);
       closeAddModal();
     };
+    const handleDelete = (stock: Stock) => {
+      stockAction.deleteStock(stock);
+    };
     return () => (
       <div class="flex flex-col">
-        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="overflow-x-auto">
           <div class="py-4 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table class="min-w-full divide-y divide-gray-200">
@@ -51,7 +54,7 @@ const StockTable = defineComponent({
                   <tr>
                     <td colspan={6}>
                       <div class="flex justify-center items-center py-2">
-                        <IconButton icon="plus" color="green" onClick={openAddModal} />
+                        <IconButton icon="plus" onClick={openAddModal} />
                       </div>
                     </td>
                   </tr>
@@ -84,9 +87,7 @@ const StockTable = defineComponent({
                         <div class="text-sm text-gray-900">{stock.getMonths().join(',')}</div>
                       </td>
                       <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                          Edit
-                        </a>
+                        <IconButton icon="trash" onClick={() => handleDelete(stock)} />
                       </td>
                     </tr>
                   ))}
