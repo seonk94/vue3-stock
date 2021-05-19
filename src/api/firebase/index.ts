@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
-export default class FirebaseClient {
+class FirebaseClient {
   public setStockDatum(id: string, data: StockPropertyType) {
     return firebase.firestore().collection(id).doc(data.symbol).set(data);
   }
@@ -14,3 +14,7 @@ export default class FirebaseClient {
     return firebase.firestore().collection(id).doc(symbol).delete();
   }
 }
+
+const firebaseClient = new FirebaseClient();
+
+export default firebaseClient;

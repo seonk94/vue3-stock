@@ -1,4 +1,4 @@
-import FirebaseClient from '@/api/firebase';
+import firebaseClient from '@/api/firebase';
 import { injectAuth } from '@/lib/provider/AuthProvider';
 import Stock from '@/model/Stock';
 import { injectClient } from '@/plugins/client';
@@ -46,7 +46,7 @@ const SymbolAddModal = defineComponent({
     const handleAdd = async () => {
       if (addValid.value && authState.auth) {
         const stockDatum = await combineStock();
-        await new FirebaseClient().setStockDatum(authState.auth.uid, stockDatum);
+        await firebaseClient.setStockDatum(authState.auth.uid, stockDatum);
         context.emit('add', new Stock(stockDatum));
       }
     };

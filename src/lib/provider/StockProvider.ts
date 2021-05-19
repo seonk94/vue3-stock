@@ -1,6 +1,6 @@
 import { inject, provide, reactive } from '@vue/runtime-core';
-import FirebaseClient from '@/api/firebase';
 import Stock from '@/model/Stock';
+import firebaseClient from '@/api/firebase';
 
 const StockSymbol = Symbol();
 
@@ -12,7 +12,7 @@ const createContext = (userId: string) => {
   const action = {
     fetchStocks: async () => {
       const result: Stock[] = [];
-      await new FirebaseClient().getStockDatum(userId).then((querySnapshot) => {
+      await firebaseClient.getStockDatum(userId).then((querySnapshot) => {
         querySnapshot.forEach((doc) => result.push(new Stock(doc.data() as StockPropertyType)));
       });
       state.stocks = result;
