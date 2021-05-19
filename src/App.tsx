@@ -21,7 +21,7 @@ const App = defineComponent({
       loading.value = false;
     });
     const LoadingDiv = (
-      <div class="bg-gray-400 w-screen h-screen flex items-center justify-center">
+      <div class="bg-white w-screen h-screen flex items-center justify-center">
         <Loading class="w-14 h-14" />
       </div>
     );

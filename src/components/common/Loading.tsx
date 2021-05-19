@@ -1,10 +1,20 @@
-import { defineComponent } from '@vue/runtime-core';
+import { computed, defineComponent } from '@vue/runtime-core';
 
 const Loading = defineComponent({
-  setup() {
+  props: {
+    color: {
+      type: String,
+      default: 'green',
+    },
+  },
+  setup(props) {
+    const classes = computed(() => ({
+      [`text-${props.color}-500`]: true,
+      'inline-flex': true,
+    }));
     return () => (
-      <div class="inline-flex">
-        <svg class="animate-spin h-full w-full text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div class={classes.value}>
+        <svg class="animate-spin h-full w-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path
             class="opacity-75"
