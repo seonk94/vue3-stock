@@ -1,27 +1,31 @@
-import { App, ref } from 'vue';
+import { App, inject, reactive } from 'vue';
 
+const ThemeSymbol = Symbol();
+type ThemeType = 'light' | 'dark';
 export const createTheme = () => {
-  const theme = ref<'light' | 'dark'>('light');
+  const state = reactive({
+    theme: 'light' as ThemeType,
+  });
 
   (function checkLocalStorage() {
     const storageTheme = localStorage.getItem('theme');
-    if (storageTheme && (storageTheme === 'dark' || storageTheme === 'light')) theme.value = storageTheme;
+    if (storageTheme && (storageTheme === 'dark' || storageTheme === 'light')) state.theme = storageTheme;
   })();
 
   const action = {
     toggleTheme: () => {
-      theme.value = theme.value === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('theme', theme.value);
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', state.theme);
     },
   };
   return {
-    theme,
+    themeState: state,
     themeAction: action,
   };
 };
 
 export function injectTheme() {
-  const theme = createTheme();
+  const theme = inject(ThemeSymbol) as ReturnType<typeof createTheme>;
 
   if (!theme) throw new Error('Use Theme Error');
 
@@ -30,7 +34,8 @@ export function injectTheme() {
 
 export default {
   install: (app: App) => {
-    const theme = injectTheme();
+    const theme = createTheme();
+    app.provide(ThemeSymbol, theme);
     app.config.globalProperties.$theme = theme;
   },
 };

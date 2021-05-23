@@ -1,7 +1,8 @@
-import { App } from 'vue';
+import { App, inject } from 'vue';
 import axios, { AxiosError } from 'axios';
 import IexApi from '@/api/IexApi';
 
+const AxiosSymbol = Symbol();
 export const createAxios = () => {
   const axiosInstance = axios.create({
     baseURL: process.env.VUE_APP_IEX_BASE_URL,
@@ -27,16 +28,15 @@ export const createAxios = () => {
 };
 
 export function injectClient() {
-  const axios = createAxios();
-  const client = IexApi(axios);
+  const client = inject(AxiosSymbol) as ReturnType<typeof IexApi>;
   if (!client) throw new Error('Use Client Error');
-
   return client;
 }
 
 export default {
   install: (app: App) => {
-    const client = injectClient();
-    app.config.globalProperties.$client = client;
+    const axios = createAxios();
+    app.provide(AxiosSymbol, IexApi(axios));
+    app.config.globalProperties.$client = IexApi(axios);
   },
 };
