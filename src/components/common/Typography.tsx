@@ -1,4 +1,3 @@
-import { injectTheme } from '@/plugins/theme';
 import { computed, defineComponent, PropType } from '@vue/runtime-core';
 
 type FontSizeType = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl';
@@ -27,11 +26,8 @@ const Typography = defineComponent({
     },
   },
   setup(props, context) {
-    const { themeState } = injectTheme();
     const classes = computed(() => {
-      const isDark = themeState.theme === 'dark';
-
-      const textColor = isDark ? 'text-white' : 'text-gray-700';
+      const textColor = 'dark:text-gray-100 text-gray-700';
       const fontSize = `text-${props.fontSize}`;
       const fontWeight = `font-${props.fontWeight}`;
       const hover = props.hover ? 'hover:bg-indigo-700 hover:text-white' : '';

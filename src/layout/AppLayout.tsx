@@ -16,7 +16,7 @@ const AppLayout = defineComponent({
     };
     initFirebaseClient();
     return () => (
-      <div class="container max-w-full h-screen">
+      <div class="container max-w-full min-h-screen bg-gray-100 dark:bg-gray-800">
         <Appbar />
         <router-view />
       </div>

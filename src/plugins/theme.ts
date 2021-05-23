@@ -1,4 +1,4 @@
-import { App, inject, reactive } from 'vue';
+import { App, inject, reactive, watch } from 'vue';
 
 const ThemeSymbol = Symbol();
 type ThemeType = 'light' | 'dark';
@@ -9,7 +9,9 @@ export const createTheme = () => {
 
   (function checkLocalStorage() {
     const storageTheme = localStorage.getItem('theme');
-    if (storageTheme && (storageTheme === 'dark' || storageTheme === 'light')) state.theme = storageTheme;
+    if (storageTheme && (storageTheme === 'dark' || storageTheme === 'light')) {
+      state.theme = storageTheme;
+    }
   })();
 
   const action = {
@@ -18,6 +20,20 @@ export const createTheme = () => {
       localStorage.setItem('theme', state.theme);
     },
   };
+
+  watch(
+    () => state.theme,
+    () => {
+      if (state.theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    },
+    {
+      immediate: true,
+    }
+  );
   return {
     themeState: state,
     themeAction: action,

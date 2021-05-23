@@ -14,7 +14,7 @@ const TableHeader = defineComponent({
       </th>
     );
     return () => (
-      <thead class="bg-gray-50">
+      <thead class="bg-gray-100 dark:bg-gray-700">
         <tr>{props.headers.map((header) => TH(header))}</tr>
       </thead>
     );
