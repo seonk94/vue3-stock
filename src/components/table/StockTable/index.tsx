@@ -60,13 +60,13 @@ const StockTable = defineComponent({
                     <Typography fontSize="sm">{stock.holdings}</Typography>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <Typography fontSize="sm">{stock.calculateDividend().amount}</Typography>
+                    <Typography fontSize="sm">{stock.amount}</Typography>
                     <Typography fontSize="sm">
-                      {stock.holdings} x {stock.calculateDividend().amount} = {stock.holdings * stock.calculateDividend().amount}
+                      {stock.holdings} x {stock.amount} = {stock.holdings * stock.amount}
                     </Typography>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <Typography fontSize="sm">{stock.getMonths().join(',')}</Typography>
+                    <Typography fontSize="sm">{stock.months.join(',')}</Typography>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <IconButton icon="trash" onClick={() => handleDelete(stock)} />

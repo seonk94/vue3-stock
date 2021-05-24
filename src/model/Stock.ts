@@ -8,19 +8,7 @@ export default class Stock {
     Object.assign(this, init);
   }
 
-  public calculateDividend() {
-    if (this.dividend.length === 0)
-      return {
-        amount: 0,
-        frequency: null,
-      };
-    const latestDividend = this.dividend[0];
-    return {
-      amount: Number(latestDividend.amount),
-      frequency: latestDividend.frequency,
-    };
-  }
-  public getMonths() {
+  get months() {
     if (this.dividend.length === 0) return [];
     const latestDividend = this.dividend[0];
     if (latestDividend.frequency === 'monthly') {
@@ -35,5 +23,32 @@ export default class Stock {
       return monthList.find((arr) => arr.includes(month)) as number[];
     }
     return [];
+  }
+
+  get amount() {
+    if (this.dividend.length === 0) return 0;
+    const latestDividend = this.dividend[0];
+    return Number(latestDividend.amount);
+  }
+
+  get frequency() {
+    if (this.dividend.length === 0) return null;
+    const latestDividend = this.dividend[0];
+    return latestDividend.frequency;
+  }
+
+  get chartData() {
+    const data = Array.from({ length: 12 }, () => 0);
+    const color = Math.floor(Math.random() * 16777215).toString(16);
+    const amount = this.amount;
+
+    this.months.forEach((month) => {
+      data[month - 1] = amount;
+    });
+    return {
+      data,
+      label: this.symbol,
+      backgroundColor: `#${color}`,
+    };
   }
 }
