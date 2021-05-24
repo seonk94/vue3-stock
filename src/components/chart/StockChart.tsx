@@ -46,12 +46,6 @@ const StockChart = defineComponent({
           datasets: dataSet.value,
         },
         options: {
-          plugins: {
-            title: {
-              display: true,
-              text: 'Chart.js Bar Chart - Stacked',
-            },
-          },
           responsive: true,
           scales: {
             x: {
