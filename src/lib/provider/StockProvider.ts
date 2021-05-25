@@ -9,7 +9,7 @@ const createContext = () => {
     stocks: [] as Stock[],
   });
 
-  const action = {
+  const methods = {
     fetchStocks: async () => {
       const result: Stock[] = [];
       await firebaseClient.getStockDatum().then((querySnapshot) => {
@@ -21,13 +21,16 @@ const createContext = () => {
       await firebaseClient.deleteStockDatum(deleteStock.symbol);
       state.stocks = state.stocks.filter((stock) => stock.symbol !== deleteStock.symbol);
     },
+    hasDividendStocks: () => {
+      return state.stocks.filter((stock) => stock.frequency);
+    },
   };
 
-  action.fetchStocks();
+  methods.fetchStocks();
 
   return {
     stockState: state,
-    stockAction: action,
+    stockMethods: methods,
   };
 };
 

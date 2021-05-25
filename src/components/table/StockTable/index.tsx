@@ -8,7 +8,7 @@ import Typography from '@/components/common/Typography';
 
 const StockTable = defineComponent({
   setup() {
-    const { stockState, stockAction } = injectStock();
+    const { stockState, stockMethods } = injectStock();
     const showAddModal = ref(false);
 
     const headers = ['Symbol', 'Company', 'Holdings', 'Dividend', 'Months', 'Delete'];
@@ -24,7 +24,7 @@ const StockTable = defineComponent({
       closeAddModal();
     };
     const handleDelete = (stock: Stock) => {
-      stockAction.deleteStock(stock);
+      stockMethods.deleteStock(stock);
     };
     return () => (
       <div class="flex flex-col">

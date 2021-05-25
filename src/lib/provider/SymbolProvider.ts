@@ -9,18 +9,18 @@ const createContext = () => {
     symbols: [] as IexSymbol[],
   });
 
-  const action = {
+  const methods = {
     fetchSymbols: async () => {
       const result = await client.getSymbolList();
       state.symbols = result.data;
     },
   };
 
-  action.fetchSymbols();
+  methods.fetchSymbols();
 
   return {
     symbolState: state,
-    symbolAction: action,
+    symbolMethods: methods,
   };
 };
 

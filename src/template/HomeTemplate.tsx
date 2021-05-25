@@ -5,11 +5,11 @@ import { computed, defineComponent } from '@vue/runtime-core';
 
 const HomeTemplate = defineComponent({
   setup() {
-    const { stockState } = injectStock();
-    const filterStocks = computed(() => stockState.stocks.filter((stock) => !!stock.frequency));
+    const { stockMethods } = injectStock();
+    const filterStocks = computed(() => stockMethods.hasDividendStocks());
     return () => (
       <div class="container m-auto">
-        {stockState.stocks.length > 0 && <StockChart stocks={filterStocks.value} />}
+        {filterStocks.value.length > 0 && <StockChart stocks={filterStocks.value} />}
         <StockTable />
       </div>
     );

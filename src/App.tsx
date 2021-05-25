@@ -9,13 +9,13 @@ const App = defineComponent({
   setup() {
     const router = useRouter();
     const loading = ref(true);
-    const { authAction } = injectAuth();
+    const { authMethods } = injectAuth();
 
     auth.onAuthStateChanged((user) => {
       if (!user) {
         router.push('/login');
       } else {
-        authAction.setAuth(user);
+        authMethods.setAuth(user);
         router.push('/home');
       }
       loading.value = false;
