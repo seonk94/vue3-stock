@@ -48,7 +48,7 @@ export default class Stock {
     return {
       data,
       label: this.symbol,
-      backgroundColor: `#${color}`,
+      backgroundColor: `#${color}aa`,
     };
   }
 }
