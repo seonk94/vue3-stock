@@ -10,7 +10,7 @@ const createContext = () => {
     auth: null as NullableUser,
   });
 
-  const action = {
+  const methods = {
     setAuth: (auth: NullableUser) => {
       state.auth = auth;
     },
@@ -18,7 +18,7 @@ const createContext = () => {
 
   return {
     authState: state,
-    authAction: action,
+    authMethods: methods,
   };
 };
 
