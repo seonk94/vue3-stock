@@ -1,4 +1,20 @@
+@import './animation.scss';
+
 input:checked ~ .dot {
   transform: translateX(100%);
   background-color: #48bb78;
+}
+
+.dollar-conatiner {
+  position: fixed;
+  top: -50px;
+  left: 0;
+  z-index: -1;
+  animation: Dollar-Infinite infinite 15s linear;
+}
+
+.dollar-img {
+  width: 24px;
+  height: 24px;
+  animation: Dollar-Rotate infinite 4s linear;
 }

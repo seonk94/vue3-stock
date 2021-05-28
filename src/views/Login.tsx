@@ -1,17 +1,31 @@
+import RoatateDollar from '@/components/common/RotateDollar';
 import { GoogleProvider } from '@/lib/firebase';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
-import { defineComponent, onMounted } from 'vue';
+import { computed, defineComponent, onMounted } from 'vue';
 const Login = defineComponent({
   setup() {
+    const dollars = computed(() => {
+      const width = document.body.offsetWidth;
+      const length = width / 40;
+
+      return Array.from({ length }, (_, i) => i).map((i) => {
+        const duration = `${Math.floor(Math.random() * 11) + 10}s`;
+        const rotateDuration = `${Math.floor(Math.random() * 2) + 4}s`;
+        const delay = `${Math.floor(Math.random() * 11)}s`;
+        const left = `${i * 50}px`;
+        const image = <RoatateDollar left={left} duration={duration} delay={delay} rotateDuration={rotateDuration} />;
+        return image;
+      });
+    });
     function initFirebase() {
       let ui = firebaseui.auth.AuthUI.getInstance();
       if (!ui) {
         ui = new firebaseui.auth.AuthUI(firebase.auth());
       }
       const uiConfig = {
-        signInSuccessUrl: '/home',
+        signInSuccessUrl: '/manage',
         signInOptions: [GoogleProvider],
       };
       ui.start('#firebaseui-auth-container', uiConfig);
@@ -35,6 +49,7 @@ const Login = defineComponent({
             <h6 class="text-sm">buba @</h6>
           </div>
         </div>
+        {dollars.value.map((image) => image)}
       </div>
     );
   },
