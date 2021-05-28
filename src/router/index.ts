@@ -11,13 +11,13 @@ const routes: Array<RouteRecordRaw> = [
     component: loadView('Login'),
   },
   {
-    path: '/',
+    path: '/manage',
     component: () => import(/* webpackChunkName: "AppLayout" */ '@/layout/AppLayout'),
     children: [
       {
-        path: 'home',
-        name: 'Home',
-        component: loadView('Home'),
+        path: 'manage',
+        name: 'Manage',
+        component: loadView('Manage'),
       },
     ],
   },

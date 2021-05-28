@@ -3,7 +3,7 @@ import { provideSymbol } from '@/lib/provider/SymbolProvider';
 import HomeTemplate from '@/template/HomeTemplate';
 import { defineComponent } from '@vue/runtime-core';
 
-const Home = defineComponent({
+const Manage = defineComponent({
   setup() {
     provideStock();
     provideSymbol();
@@ -11,4 +11,4 @@ const Home = defineComponent({
     return () => <HomeTemplate />;
   },
 });
-export default Home;
+export default Manage;
