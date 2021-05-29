@@ -5,5 +5,6 @@ import AuthProvider from './lib/provider/AuthProvider';
 import './index.css';
 import client from './plugins/client';
 import theme from './plugins/theme';
+import mouse from './plugins/mouse';
 
-createApp(App).use(router).use(client).use(theme).use(AuthProvider).mount('#app');
+createApp(App).use(router).use(client).use(theme).use(mouse).use(AuthProvider).mount('#app');
