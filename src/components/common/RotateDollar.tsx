@@ -1,4 +1,6 @@
+import { injectMouse } from '@/plugins/mouse';
 import { computed, defineComponent } from '@vue/runtime-core';
+
 const RoatateDollar = defineComponent({
   props: {
     left: {
@@ -20,11 +22,14 @@ const RoatateDollar = defineComponent({
   },
   setup(props) {
     const dollar = computed(() => require('@/assets/icon/dollar.svg'));
+    const { state: mouseState } = injectMouse();
+    const randomValue = Math.floor(Math.random() * 8) + 4;
+    const left = computed(() => `${parseFloat(props.left) + -mouseState.mx / randomValue}px`);
     return () => (
       <div
         class="dollar-conatiner"
         style={{
-          left: props.left,
+          left: left.value,
           animationDuration: props.duration,
           animationDelay: props.delay,
         }}

@@ -10,11 +10,13 @@ input:checked ~ .dot {
   top: -50px;
   left: 0;
   z-index: -1;
+  width: 24px;
+  height: 24px;
   animation: Dollar-Infinite infinite 15s linear;
 }
 
 .dollar-img {
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   animation: Dollar-Rotate infinite 4s linear;
 }
