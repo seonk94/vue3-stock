@@ -11,7 +11,6 @@ export const createMouse = () => {
     speed: 0.05,
   });
 
-  console.log('call this');
   window.addEventListener('mousemove', (e: MouseEvent) => {
     state.x = e.clientX - window.innerWidth / 2;
     state.y = e.clientY - window.innerHeight / 2;
