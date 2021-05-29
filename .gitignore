@@ -27,3 +27,5 @@ firebase-debug.log
 
 # firebase
 hosting.*.cache
+
+**.log
