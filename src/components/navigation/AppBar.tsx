@@ -9,7 +9,7 @@ const Appbar = defineComponent({
     const { themeState, themeAction } = injectTheme();
 
     const pushHome = () => {
-      router.push('home');
+      router.push('manage');
     };
     return () => (
       <nav class="bg-gray-800 sticky top-0">

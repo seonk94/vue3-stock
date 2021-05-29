@@ -16,7 +16,7 @@ const App = defineComponent({
         router.push('/login');
       } else {
         authMethods.setAuth(user);
-        router.push('/home');
+        router.push('/manage');
       }
       loading.value = false;
     });
