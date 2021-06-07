@@ -35,6 +35,7 @@ jobs:
       env:
         CI: true
         VUE_APP_IEX_BASE_URL: ${{ secrets.VUE_APP_IEX_BASE_URL }}
+        VUE_APP_IEX_API_TOKEN: ${{ secrets.VUE_APP_IEX_API_TOKEN }}
         VUE_APP_API_KEY: ${{ secrets.VUE_APP_API_KEY }}
         VUE_APP_AUTH_DOMAIN: ${{ secrets.VUE_APP_AUTH_DOMAIN }}
         VUE_APP_DATABASE_URL: ${{ secrets.VUE_APP_DATABASE_URL }}
@@ -49,14 +50,3 @@ jobs:
       run: |
         npm install -g firebase-tools
         firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
-      env:
-        CI: true
-        VUE_APP_IEX_BASE_URL: ${{ secrets.VUE_APP_IEX_BASE_URL }}
-        VUE_APP_API_KEY: ${{ secrets.VUE_APP_API_KEY }}
-        VUE_APP_AUTH_DOMAIN: ${{ secrets.VUE_APP_AUTH_DOMAIN }}
-        VUE_APP_DATABASE_URL: ${{ secrets.VUE_APP_DATABASE_URL }}
-        VUE_APP_PROJECT_ID: ${{ secrets.VUE_APP_PROJECT_ID }}
-        VUE_APP_STORAGE_BUCKET: ${{ secrets.VUE_APP_STORAGE_BUCKET }}
-        VUE_APP_MESSAGIN_ID: ${{ secrets.VUE_APP_MESSAGIN_ID }}
-        VUE_APP_APP_ID: ${{ secrets.VUE_APP_APP_ID }}
-        VUE_APP_MEASUREMENT_ID: ${{ secrets.VUE_APP_MEASUREMENT_ID }}
