@@ -46,7 +46,7 @@ const Login = defineComponent({
           </div>
           <div class="flex-grow" />
           <div class="block py-4 text-center">
-            <h6 class="text-sm">buba @</h6>
+            <h6 class="text-sm">buba @ dividends-info</h6>
           </div>
         </div>
         {dollars.value.map((image) => image)}
