@@ -6,26 +6,6 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - master
-# jobs:
-#   create-envfile:
- 
-#     runs-on: ubuntu-18.04
- 
-#     steps:
-#     - name: Make envfile
-#       uses: SpicyPizza/create-envfile@v1
-#       with:
-#         envkey_VUE_APP_IEX_API_TOKEN: ${{ secrets.VUE_APP_IEX_API_TOKEN }}
-#         envkey_VUE_APP_IEX_BASE_URL: ${{ secrets.VUE_APP_IEX_BASE_URL }}
-#         envkey_VUE_APP_API_KEY: ${{ secrets.VUE_APP_API_KEY }}
-#         envkey_VUE_APP_AUTH_DOMAIN: ${{ secrets.VUE_APP_AUTH_DOMAIN }}
-#         envkey_VUE_APP_DATABASE_URL: ${{ secrets.VUE_APP_DATABASE_URL }}
-#         envkey_VUE_APP_PROJECT_ID: ${{ secrets.VUE_APP_PROJECT_ID }}
-#         envkey_VUE_APP_STORAGE_BUCKET: ${{ secrets.VUE_APP_STORAGE_BUCKET }}
-#         envkey_VUE_APP_MESSAGIN_ID: ${{ secrets.VUE_APP_MESSAGIN_ID }}
-#         envkey_VUE_APP_APP_ID: ${{ secrets.VUE_APP_APP_ID }}
-#         envkey_VUE_APP_MEASUREMENT_ID: ${{ secrets.VUE_APP_MEASUREMENT_ID }}
-#         file_name: .env
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -52,6 +32,18 @@ jobs:
     
     - name: Build
       run: npm run build
+      env:
+        CI: true
+        VUE_APP_IEX_BASE_URL: ${{ secrets.VUE_APP_IEX_BASE_URL }}
+        VUE_APP_API_KEY: ${{ secrets.VUE_APP_API_KEY }}
+        VUE_APP_AUTH_DOMAIN: ${{ secrets.VUE_APP_AUTH_DOMAIN }}
+        VUE_APP_DATABASE_URL: ${{ secrets.VUE_APP_DATABASE_URL }}
+        VUE_APP_PROJECT_ID: ${{ secrets.VUE_APP_PROJECT_ID }}
+        VUE_APP_STORAGE_BUCKET: ${{ secrets.VUE_APP_STORAGE_BUCKET }}
+        VUE_APP_MESSAGIN_ID: ${{ secrets.VUE_APP_MESSAGIN_ID }}
+        VUE_APP_APP_ID: ${{ secrets.VUE_APP_APP_ID }}
+        VUE_APP_MEASUREMENT_ID: ${{ secrets.VUE_APP_MEASUREMENT_ID }}
+
 
     - name: Firebase Deploy
       run: |
@@ -59,6 +51,12 @@ jobs:
         firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
       env:
         CI: true
-        VUE_APP_FIREBASE_CONFIG: ${{ secrets.VUE_APP_FIREBASE_CONFIG }}
-        VUE_APP_IEX_API_BASE_URL: ${{ secrets.VUE_APP_IEX_API_BASE_URL }}
-        VUE_APP_IEX_API_TOKEN: ${{ secrets.VUE_APP_IEX_API_TOKEN }}
+        VUE_APP_IEX_BASE_URL: ${{ secrets.VUE_APP_IEX_BASE_URL }}
+        VUE_APP_API_KEY: ${{ secrets.VUE_APP_API_KEY }}
+        VUE_APP_AUTH_DOMAIN: ${{ secrets.VUE_APP_AUTH_DOMAIN }}
+        VUE_APP_DATABASE_URL: ${{ secrets.VUE_APP_DATABASE_URL }}
+        VUE_APP_PROJECT_ID: ${{ secrets.VUE_APP_PROJECT_ID }}
+        VUE_APP_STORAGE_BUCKET: ${{ secrets.VUE_APP_STORAGE_BUCKET }}
+        VUE_APP_MESSAGIN_ID: ${{ secrets.VUE_APP_MESSAGIN_ID }}
+        VUE_APP_APP_ID: ${{ secrets.VUE_APP_APP_ID }}
+        VUE_APP_MEASUREMENT_ID: ${{ secrets.VUE_APP_MEASUREMENT_ID }}
