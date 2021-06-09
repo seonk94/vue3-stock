@@ -6,10 +6,10 @@ import { computed, defineComponent } from '@vue/runtime-core';
 const HomeTemplate = defineComponent({
   setup() {
     const { stockMethods } = injectStock();
-    const filterStocks = computed(() => stockMethods.hasDividendStocks());
+    const filterStocks = computed(() => stockMethods.hasDividendStocks().map((stock) => stock.chartData));
     return () => (
       <div class="container m-auto">
-        {filterStocks.value.length > 0 && <StockChart stocks={filterStocks.value} />}
+        {filterStocks.value.length > 0 && <StockChart dataSets={filterStocks.value} />}
         <StockTable />
       </div>
     );

@@ -1,31 +1,36 @@
-import Stock from '@/model/Stock';
-import { computed, defineComponent, onMounted, watch } from '@vue/runtime-core';
+import { defineComponent, onMounted, watch } from '@vue/runtime-core';
 import Chart from 'chart.js/auto';
 import { Chart as ChartType } from 'chart.js';
 import { ref } from 'vue';
 
 const StockChart = defineComponent({
   props: {
-    stocks: {
-      type: Array as () => Array<Stock>,
-      required: true,
+    dataSets: {
+      type: Array as () => Array<{
+        data: number[];
+        label: string;
+        backgroundColor: string;
+      }>,
+      default: () => [],
     },
   },
   setup(props) {
     const chartCanvas = ref();
     const chart = ref<ChartType>();
-    const dataSet = computed(() => props.stocks.map((stock) => stock.chartData));
 
     watch(
-      () => props.stocks,
+      () => props.dataSets,
       () => {
         if (chart.value) {
-          chart.value.update();
+          renderChart();
         }
       }
     );
 
-    onMounted(() => {
+    function renderChart() {
+      if (chart.value) {
+        chart.value.destroy();
+      }
       chart.value = new Chart(chartCanvas.value, {
         type: 'bar',
         data: {
@@ -43,7 +48,7 @@ const StockChart = defineComponent({
             'November',
             'December',
           ],
-          datasets: dataSet.value,
+          datasets: props.dataSets,
         },
         options: {
           responsive: true,
@@ -57,7 +62,11 @@ const StockChart = defineComponent({
           },
         },
       }) as ChartType;
+    }
+    onMounted(() => {
+      renderChart();
     });
+
     return () => (
       <div class="canvas-container">
         <canvas
