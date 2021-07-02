@@ -41,8 +41,8 @@ const StockTable = defineComponent({
               </tr>
               {stockState.stocks.map((stock) => (
                 <tr>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex-shrink-0 h-10 w-10">
+                  <td class="px-2 py-2 whitespace-nowrap">
+                    <div class="h-10 w-10 m-auto">
                       <img
                         class="h-10 w-10 rounded-full border border-gray-200 dark:divide-gray-900"
                         src={`https://storage.googleapis.com/iexcloud-hl37opg/api/logos/${stock.symbol}.png`}
@@ -50,25 +50,24 @@ const StockTable = defineComponent({
                       />
                     </div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
+                  <td class="px-2 py-2 whitespace-nowrap">
                     <Typography fontSize="sm" fontWeight="bold">
                       {stock.symbol}
                     </Typography>
                     <Typography fontSize="sm">{stock.company.companyName}</Typography>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
+                  <td class="px-2 py-2 whitespace-nowrap text-center">
                     <Typography fontSize="sm">{stock.holdings}</Typography>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <Typography fontSize="sm">{stock.amount}</Typography>
+                  <td class="px-2 py-2 whitespace-nowrap text-center">
                     <Typography fontSize="sm">
-                      {stock.holdings} x {stock.amount} = {stock.holdings * stock.amount}
+                      {stock.holdings} x {stock.amount}$ = {stock.holdings * stock.amount}$
                     </Typography>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
+                  <td class="px-2 py-2 whitespace-nowrap text-center">
                     <Typography fontSize="sm">{stock.months.join(',')}</Typography>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <td class="px-2 py-2 whitespace-nowrap text-center text-sm font-medium">
                     <IconButton icon="trash" onClick={() => handleDelete(stock)} />
                   </td>
                 </tr>
