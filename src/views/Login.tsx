@@ -3,10 +3,10 @@ import { GoogleProvider } from '@/lib/firebase';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
-import { computed, defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 const Login = defineComponent({
   setup() {
-    const dollars = computed(() => {
+    const dollars = (function () {
       const width = document.body.offsetWidth;
       const length = width / 40;
 
@@ -15,20 +15,20 @@ const Login = defineComponent({
         const rotateDuration = `${Math.floor(Math.random() * 2) + 4}s`;
         const delay = `${Math.floor(Math.random() * 11)}s`;
         const left = `${i * 50}px`;
-        const image = <RoatateDollar left={left} duration={duration} delay={delay} rotateDuration={rotateDuration} />;
-        return image;
+        return <RoatateDollar left={left} duration={duration} delay={delay} rotateDuration={rotateDuration} />;
       });
-    });
+    })();
+
     function initFirebase() {
       let ui = firebaseui.auth.AuthUI.getInstance();
       if (!ui) {
         ui = new firebaseui.auth.AuthUI(firebase.auth());
       }
-      const uiConfig = {
+
+      ui.start('#firebaseui-auth-container', {
         signInSuccessUrl: '/manage',
         signInOptions: [GoogleProvider],
-      };
-      ui.start('#firebaseui-auth-container', uiConfig);
+      });
     }
 
     onMounted(() => {
@@ -49,7 +49,7 @@ const Login = defineComponent({
             <h6 class="text-sm">buba @ dividends-info</h6>
           </div>
         </div>
-        {dollars.value.map((image) => image)}
+        {dollars.map((image) => image)}
       </div>
     );
   },
